@@ -1,2 +1,2 @@
 <?php
-    echo "thientran98qb";
+    include_once "./model/ConnectDB.php";
