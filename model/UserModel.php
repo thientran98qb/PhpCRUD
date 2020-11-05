@@ -34,4 +34,7 @@
                 $this->conn->rollBack();
             }
         }
+        function getRow($id){
+
+        }
     }
