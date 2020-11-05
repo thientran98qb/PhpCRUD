@@ -9,4 +9,13 @@
             $userList=$this->show();
             include_once DOCUMENT_ROOT . "/views/users/index.php";
         }
+        function addUser(){
+            $arr=
+                [
+                    'user_name'=>'thientran98qb',
+                    'user_img'=>'img/s',
+                    'user_phone'=>'0123646'
+                ];
+            $this->add($arr);
+        }
     }
