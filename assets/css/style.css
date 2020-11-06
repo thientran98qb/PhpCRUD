@@ -1,5 +1,5 @@
 .nav{
-    background-color: aqua;
+    background-color: #E74C3C;
     margin-bottom: 20px;
 }
 .nav_content{
@@ -9,7 +9,8 @@
 .nav_content h1{
     text-align: center;
     padding: 10px 0;
-    color: saddlebrown;
+    color: white;
+
 }
 .container { padding-top:10px}
 .rounded { width:100px}
@@ -30,11 +31,21 @@
   }
 .logout{
     position: absolute;
-    top: 20px;
+    top: 15px;
     right: 50px;
     display: flex;
 }
 .nameLogin{
     margin-top: 10px;
     margin-right: 20px;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
 }
+.btn-logout{
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
