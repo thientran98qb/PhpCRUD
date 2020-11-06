@@ -5,6 +5,9 @@
         function __construct(){
             parent::__construct();
         }
+        public function view($view,$data=[]){
+            require_once DOCUMENT_ROOT."/views/users/".$view.".php";			
+        }
         function show(){
             $query="SELECT * FROM $this->table";
             $stmt=$this->conn->prepare($query);

@@ -30,17 +30,27 @@
                 <?php if(isset($_SESSION['loginError'])){ ?>
                     <p class="error"><?php echo $_SESSION['loginError']; ?></p>
                 <?php } ?>
+                
+                <p id="error_username"></p>
                 <h3>Login Website</h3>
                 <form action=".?action=processlogin" method="post" id="form_Login">
                     <div class="form-group">
                         <label for="">Username</label>
                         <input type="text" name="username" id="username" class="form-control">
-                        <p id="error_username"></p>
+                        <p id="error">
+                            <?php if(isset($data['error']['username'])) {?>
+                                <?php echo $data['error']['username'];?>
+                            <?php }?>
+                        </p>
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
                         <input type="password" name="password" class="form-control" id="password">
-                        <p id="error_pass"></p>
+                        <p id="error">
+                            <?php if(isset($data['error']['password'])) {?>
+                                <?php echo $data['error']['password'];?>
+                            <?php }?>
+                        </p>
                     </div>
                     <div class="form-group">
                         <input type="checkbox" name="remember" id="rememberMe">
