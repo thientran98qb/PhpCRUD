@@ -21,23 +21,39 @@
                 <form action=".?action=registerProcess" method="post" id="form_register">
                     <div class="form-group">
                         <label for="">Username</label>
-                        <input type="text" name="username" id="username" class="form-control">
-                        <p id="error_username"></p>
+                        <input type="text" name="username" value="<?php if(isset($data['username'])) { echo $data['username']; }?>"  id="username" class="form-control">
+                        <p id="error">
+                            <?php if(isset($data['error']['username'])) {?>
+                                <?php echo $data['error']['username'];?>
+                            <?php }?>
+                        </p>
                     </div>
                     <div class="form-group">
                         <label for="">Fullname</label>
                         <input type="text" name="fullname" id="fullname" class="form-control">
-                        <p id="error_fullname"></p>
+                        <p id="error">
+                            <?php if(isset($data['error']['fullname'])) {?>
+                                <?php echo $data['error']['fullname'];?>
+                            <?php }?>
+                        </p>
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
                         <input type="password" name="password" class="form-control" id="password">
-                        <p id="error_pass"></p>
+                        <p id="error">
+                            <?php if(isset($data['error']['password'])) {?>
+                                <?php echo $data['error']['password'];?>
+                            <?php }?>
+                        </p>
                     </div>
                     <div class="form-group">
                         <label for="">Re-Password</label>
                         <input type="password" name="repassword" class="form-control" id="repassword">
-                        <p id="error_repass"></p>
+                        <p id="error">
+                            <?php if(isset($data['error']['repassword'])) {?>
+                                <?php echo $data['error']['repassword'];?>
+                            <?php }?>
+                        </p>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Register" name="submitRegister" id="submitLogin" class="btn btn-primary">

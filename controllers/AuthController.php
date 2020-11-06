@@ -11,7 +11,7 @@
             $this->view('login');
         }
         function loginPage(){
-            global $error;
+            global $error,$username,$password;
             if(isset($_POST['submitLogin'])){   
                 if(empty($_POST['username']) && empty($_POST['password'])){
                     $error['username']='Username is invalid'; 
@@ -37,7 +37,9 @@
                 }
                 if(!empty($error)){
                     $this->view('login',[
-                        'error'=>$error
+                        'error'=>$error,
+                        'username'=>$username,
+                        'password'=>$password
                     ]);
                 }else{
                     $login=$this->loginProcess($username,$password);
@@ -72,21 +74,63 @@
         }
         function registerProcess(){
             if(isset($_POST['submitRegister'])){
-                $username=$_POST['username'];
-                $password=$_POST['password'];
-                $fullname=$_POST['fullname'];
-                $data=[
-                    'user_name'=>$username,
-                    'user_fullname'=>$fullname,
-                    'user_pass'=>md5($password)
-                ];
-                $regis=$this->add($data);
-                if($regis){
-                    $_SESSION['register']='Đăng ký thành công';
-                }else{
-                    $_SESSION['register']='Đăng ký thất bại';
+                if(empty($_POST['username']) && empty($_POST['password']) &&empty($_POST['fullname'])){
+                    $error['username']='Username is invalid'; 
+                    $error['password']='Password is invalid';
+                    $error['fullname']='Fullname is invalid';
                 }
-                $this->registerUser();
+                if(empty($_POST['username'])){
+                    $error['username']='Username is invalid'; 
+                }else{
+                    if(!preg_match('/^[A-Za-z]{1}[A-Za-z0-9]{5,31}$/', $_POST['username'])){
+                        $error['username']='Username start UpperCase and [6-31] characters'; 
+                    }else{
+                        $username=$_POST['username'];
+                    }
+                }
+                if(empty($_POST['password'])){
+                    $error['password']='Password is invalid'; 
+                }else{
+                    if(!preg_match('/^[A-Za-z]{1}[A-Za-z0-9]{6,31}$/', $_POST['password'])){
+                        $error['password']='Password at least 6 characters and at least 1 letter'; 
+                    }else{
+                        $password=$_POST['password'];
+                    }
+                }
+                if(empty($_POST['fullname'])){
+                    $error['fullname']='fullname is invalid'; 
+                }else{              
+                    $fullname=$_POST['fullname'];
+                }
+                if(empty($_POST['repassword'])){
+                    $error['repassword']='repassword is invalid'; 
+                }else{
+                    if(!preg_match('/^[A-Za-z]{1}[A-Za-z0-9]{6,31}$/', $_POST['repassword'])){
+                        $error['repassword']='repassword at least 6 characters and at least 1 letter'; 
+                    }else{
+                       if($_POST['repassword']!== $password){
+                            $error['repassword']='repassword not match password'; 
+                       }
+                    }
+                }
+                if(!empty($error)){
+                    $this->view('register',[
+                        'error'=>$error
+                    ]);
+                }else{
+                    $data=[
+                        'user_name'=>$username,
+                        'user_fullname'=>$fullname,
+                        'user_pass'=>md5($password)
+                    ];
+                    $regis=$this->add($data);
+                    if($regis){
+                        $_SESSION['register']='Đăng ký thành công';
+                    }else{
+                        $_SESSION['register']='Đăng ký thất bại';
+                    }
+                    $this->registerUser();
+                }
             }
         }
     }

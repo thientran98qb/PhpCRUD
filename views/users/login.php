@@ -36,7 +36,7 @@
                 <form action=".?action=processlogin" method="post" id="form_Login">
                     <div class="form-group">
                         <label for="">Username</label>
-                        <input type="text" name="username" id="username" class="form-control">
+                        <input type="text" name="username" value="<?php if(isset($data['username'])) { echo $data['username']; }?>" id="username" class="form-control">
                         <p id="error">
                             <?php if(isset($data['error']['username'])) {?>
                                 <?php echo $data['error']['username'];?>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" name="password" class="form-control" id="password">
+                        <input type="password" name="password" value="<?php if(isset($data['password'])) { echo $data['password']; }?>" class="form-control" id="password">
                         <p id="error">
                             <?php if(isset($data['error']['password'])) {?>
                                 <?php echo $data['error']['password'];?>
