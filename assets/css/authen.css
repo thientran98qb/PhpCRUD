@@ -11,3 +11,7 @@ body{
     top: 8rem;
     left:  35rem;
 }
+.error{
+    color: red;
+    font-weight: 600;
+}

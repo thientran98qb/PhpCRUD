@@ -15,6 +15,19 @@
         <div class="nav">
             <div class="nav_content">
                 <h1>CRUD PHP</h1>
+                <span class="logout">                
+                    <p class="nameLogin">
+                        <?php if(isset($_SESSION['fullname'])) {?>
+                            <?php echo $_SESSION['fullname']; ?>
+                        <?php }?>
+                    </p>
+                    <p class="nameLogin">
+                        <?php if(isset($_COOKIE['login'])) {?>
+                            <?php echo $_COOKIE['login']; ?>
+                        <?php }?>
+                    </p>
+                    <a href=".?action=logout" class="btn btn-danger">Logout</a>
+                </span>
             </div>
         </div>
     </header>
