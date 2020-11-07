@@ -24,24 +24,24 @@
                         $tail_img=strtolower(end($extension_img)) ;
                         $newFileName=md5(time().$fileName). '.'. $tail_img;
                         if(in_array($tail_img,$tail_stand_img)){
-                            $dirFile=$_SERVER['DOCUMENT_ROOT'] . '/uploads/';
+                            $dirFile=getcwd() . '/uploads/';
                             $destFilePath=$dirFile . $newFileName;
                             if(move_uploaded_file($fileTmp,$destFilePath)){
-                                return json_encode(["ok"=>"ok"]);
+                                echo json_encode(["ok"=>"ok"]);
                             }else{
-                                return json_encode(["not"=>"not"]);
+                                echo json_encode(["not"=>"not"]);
                             }
                         }else{
-                            return json_encode(["error"=>"File extension not match"]);
+                            echo json_encode(["error"=>"File extension not match"]);
                         }
                     }else{
-                        return json_encode(["error"=>"File size must be less 2MB"]);
+                        echo json_encode(["error"=>"File size must be less 2MB"]);
                     }
                 }else{
-                    return json_encode(["error"=>"File error"]);
+                    echo json_encode(["error"=>"File error"]);
                 }
             }else{
-                return json_encode(["error"=>"File not found"]);
+                echo json_encode(["error"=>"File not found"]);
             }
         }
     }
