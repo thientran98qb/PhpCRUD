@@ -10,6 +10,8 @@
     text-align: center;
     padding: 10px 0;
     color: white;
+    outline: none;
+    background-color: none;
 
 }
 .container { padding-top:10px}

@@ -73,6 +73,7 @@
             exit();
         }
         function registerProcess(){
+            global $username,$password,$error,$fullname,$repassword;
             if(isset($_POST['submitRegister'])){
                 if(empty($_POST['username']) && empty($_POST['password']) &&empty($_POST['fullname'])){
                     $error['username']='Username is invalid'; 
@@ -117,7 +118,11 @@
                 }
                 if(!empty($error)){
                     $this->view('register',[
-                        'error'=>$error
+                        'error'=>$error,
+                        'username'=>$username,
+                        'password'=>$password,
+                        'fullname'=>$fullname,
+                        'repassword'=>$repassword
                     ]);
                 }else{
                     $data=[

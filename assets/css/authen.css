@@ -1,6 +1,5 @@
 body{
     background-color: sandybrown;
-    position: relative;
 }
 .form__login{
     border: 1px solid white;
@@ -8,8 +7,12 @@ body{
     background-color: white;
     border-radius: 5px;
     position: absolute;
-    top: 8rem;
-    left:  35rem;
+    width: 320px;
+    min-height: 420px;
+    top: 50%;
+    left:  50%;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
 }
 .error{
     color: red;
