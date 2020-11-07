@@ -49,6 +49,7 @@
                             setcookie("login",$userLogin['user_fullname'],time()+60,'/');
                         }
                         $_SESSION['fullname']=$userLogin['user_fullname'];
+                        $_SESSION['user_id']=$login;
                         $_SESSION['isLogin']=true;
                         if(isset($_SESSION['loginError'])){
                             unset($_SESSION['loginError']);
@@ -130,7 +131,7 @@
                         'user_fullname'=>$fullname,
                         'user_pass'=>md5($password)
                     ];
-                    $regis=$this->add($data);
+                    $regis=$this->addUser($data);
                     if($regis){
                         $_SESSION['register']='Đăng ký thành công';
                     }else{

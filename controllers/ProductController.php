@@ -10,4 +10,8 @@
             include_once DOCUMENT_ROOT."/views/products/index.php";
             exit();
         }
+        function addProductAjax(){
+            $d=$_POST['dataForm'];
+            var_dump($d);
+        }
     }

@@ -12,4 +12,25 @@ class ConnectDB{
             echo $e->getMessage();
         }
     }
+    function add($data,$table=''){
+        // insert into users(`user_name`,`user_img`) values ('thien','')
+        if(!empty($data)){
+            foreach ($data as $key => $value) {
+                    $flieds[]=$key;
+                    $placehouder[]=":{$key}";
+            }
+        }
+        $sql="INSERT INTO {$table} (".implode(',',$flieds).") VALUES (".implode(',',$placehouder).")";
+        $stmt=$this->conn->prepare($sql);
+        try {
+            $this->conn->beginTransaction();
+            $stmt->execute($data);
+            $lastInsertedID=$this->conn->lastInsertId();
+            $this->conn->commit();
+            return $lastInsertedID;
+        } catch (PDOException $e) {
+            echo "Message error ".$e;
+            $this->conn->rollBack();
+        }
+    }   
 }

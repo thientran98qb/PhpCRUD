@@ -1,8 +1,9 @@
 <?php include_once DOCUMENT_ROOT. "/views/layouts/header.php"; ?>
     <div class="container">
         <div class="addNew m-2">
-            <a href="" class="btn btn-primary">Add Product</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal">Add Product</button>
         </div>
+        <?php include_once DOCUMENT_ROOT."/views/products/add.php"; ?>
         <table class="table" id="userstable">
             <thead>
                 <tr>

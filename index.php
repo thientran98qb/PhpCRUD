@@ -1,15 +1,16 @@
 <?php
     session_start();
     include_once "./config/config.php";
-    include_once "./controllers/UserController.php";
     include_once "./controllers/AuthController.php";
     include_once "./controllers/ProductController.php";
-    $user=new UserController();
     $auth=new AuthController();
     $product=new ProductController();
     
     $action =filter_input(INPUT_GET,'action');
-
+    $actionAjax=isset($_REQUEST['actionn']) ? $_REQUEST['actionn'] : '';
+    if(!empty($actionAjax) && $actionAjax=="addProductAjax"){
+        return $product->addProductAjax();  
+    }
     if(empty($action)){
         $action=filter_input(INPUT_POST,'action');
     }
