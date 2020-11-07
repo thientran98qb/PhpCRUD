@@ -110,6 +110,8 @@
                     }else{
                        if($_POST['repassword']!== $password){
                             $error['repassword']='repassword not match password'; 
+                       }else{
+                           $repassword=$_POST['repassword'];
                        }
                     }
                 }

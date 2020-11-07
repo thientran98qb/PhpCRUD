@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Fullname</label>
-                        <input type="text" name="fullname" id="fullname" class="form-control">
+                        <input type="text" name="fullname" id="fullname" value="<?php if(isset($data['fullname'])) { echo $data['fullname']; }?>" class="form-control">
                         <p id="error">
                             <?php if(isset($data['error']['fullname'])) {?>
                                 <?php echo $data['error']['fullname'];?>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" name="password" class="form-control" id="password">
+                        <input type="password" name="password" value="<?php if(isset($data['password'])) { echo $data['password']; }?>" class="form-control" id="password">
                         <p id="error">
                             <?php if(isset($data['error']['password'])) {?>
                                 <?php echo $data['error']['password'];?>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Re-Password</label>
-                        <input type="password" name="repassword" class="form-control" id="repassword">
+                        <input type="password" name="repassword" value="<?php if(isset($data['repassword'])) { echo $data['repassword']; }?>"  class="form-control" id="repassword">
                         <p id="error">
                             <?php if(isset($data['error']['repassword'])) {?>
                                 <?php echo $data['error']['repassword'];?>
