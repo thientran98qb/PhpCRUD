@@ -52,7 +52,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-success" id="addButton">Submit</button>
-                <input type="hidden" name="action" value="adduser">
+                <input type="hidden" name="actionn" value="addProductAjax">
                 <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
             </div>
       </form>
