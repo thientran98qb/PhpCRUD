@@ -5,12 +5,15 @@ $(document).ready(function(){
         $.ajax({
             url:"http://localhost:8080/PhpCRUD/index.php",
             type: "POST",
-            dataType: "text",
+            dataType: "json",
             data: new FormData(this),
             processData: false,
             contentType: false,
             success:function(rows){
-                console.log(rows);
+                if(rows){
+                    console.log()
+                    $("#errorProductName").text(rows.error_name);
+                }
             },
             error:function(){
                 console.log("Something went wrong");

@@ -15,7 +15,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="productname" name="productname" required="required">
+                        <input type="text" class="form-control" id="productname" name="productname" >
+                        <div id="errorProductName"></div>
                     </div>
                 </div>
                 <div class="form-group">

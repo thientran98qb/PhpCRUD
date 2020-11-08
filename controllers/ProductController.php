@@ -11,9 +11,12 @@
             exit();
         }
         function addProductAjax(){
-            /* process file :
-                file has : +name,type,tmp_name:location of image root,error,size
-            */
+            $error=array();
+            if($_POST['productname']==""){
+                $error["error_name"]="Product name is invalid";
+            }else{
+                $productname=$_POST['productname'];
+            }
             if(isset($_FILES['productimg'])){
                 $fileName=$_FILES['productimg']['name'];
                 $fileTmp=$_FILES['productimg']['tmp_name'];
@@ -24,24 +27,29 @@
                         $tail_img=strtolower(end($extension_img)) ;
                         $newFileName=md5(time().$fileName). '.'. $tail_img;
                         if(in_array($tail_img,$tail_stand_img)){
-                            $dirFile=$_SERVER['DOCUMENT_ROOT'] . '/uploads/';
+                            $dirFile=getcwd() . '/uploads/';
                             $destFilePath=$dirFile . $newFileName;
                             if(move_uploaded_file($fileTmp,$destFilePath)){
-                                return json_encode(["ok"=>"ok"]);
+                                echo json_encode(["ok"=>"ok"]);
                             }else{
-                                return json_encode(["not"=>"not"]);
+                                $error["error_file"]="not";
                             }
                         }else{
-                            return json_encode(["error"=>"File extension not match"]);
+                            $error["error_file"]="File extension not match";
                         }
                     }else{
-                        return json_encode(["error"=>"File size must be less 2MB"]);
+                        $error["error_file"]="File size must be less 2MB";
                     }
                 }else{
-                    return json_encode(["error"=>"File error"]);
+                    $error["error_file"]="File error";
                 }
             }else{
-                return json_encode(["error"=>"File not found"]);
+                $error["error_file"]="File not found";
+            }
+            if(!empty($error)){
+                echo json_encode($error);
+            }else{
+                echo json_encode(["ok"=>"ok"]);
             }
         }
     }
