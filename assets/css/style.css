@@ -17,7 +17,7 @@
 }
 .container { padding-top:10px}
 .rounded { width:100px}
-.img-thumbnail { width:80px!important}
+.img-thumbnail { width:80px!important;height: 80px;}
 #overlay {
     background: #ffffff;
     color: #666666;
@@ -50,5 +50,9 @@
     padding: 10px 20px;
     font-size: 18px;
     font-weight: 500;
+}
+.error{
+    color: red;
+    font-weight: 600;
 }
 
