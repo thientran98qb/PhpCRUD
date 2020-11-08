@@ -11,6 +11,9 @@
     if(!empty($actionAjax) && $actionAjax=="addProductAjax"){
         return $product->addProductAjax();  
     }
+    if(!empty($actionAjax) && $actionAjax=="getProduct"){
+        return $product->getProductAjax();  
+    }
     if(empty($action)){
         $action=filter_input(INPUT_POST,'action');
     }

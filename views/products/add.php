@@ -15,9 +15,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="productname" name="productname" >
-                        <div id="errorProductName"></div>
+                        <input type="text" class="form-control" id="productname" name="productname" required="required">
                     </div>
+                    <div id="errorProductName" class="error"></div>
                 </div>
                 <div class="form-group">
                     <label for="message-text" class="col-form-label">Product Description:</label>
@@ -25,8 +25,9 @@
                         <div class="input-group-prepend">
                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="productdescription" name="productdescription" required="required">
+                        <textarea class="form-control" id="productdescription" name="productdescription" required="required" cols="30" rows="10"></textarea>
                     </div>
+                    <div id="errorDesc" class="error"></div>
                 </div>
                 <div class="form-group">
                     <label for="message-text" class="col-form-label">Date Created:</label>
@@ -48,13 +49,13 @@
                             <label class="custom-file-label" for="userphoto">Choose file</label>
                         </div>
                     </div>
+                    <div id="errorFile" class="error"></div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-success" id="addButton">Submit</button>
                 <input type="hidden" name="actionn" value="addProductAjax">
-                <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['user_id']; ?>">
             </div>
       </form>
     </div>

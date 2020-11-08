@@ -12,10 +12,18 @@
         }
         function addProductAjax(){
             $error=array();
-            if($_POST['productname']==""){
+            if(!preg_match('/^[a-z0-9A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_ ]{6,}$/', $_POST['productname'])){
                 $error["error_name"]="Product name is invalid";
             }else{
                 $productname=$_POST['productname'];
+            }
+            if(!preg_match('/^[a-z0-9A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_ ]{6,}$/', $_POST['productdescription'])){
+                $error["error_desc"]="productdescription is invalid";
+            }else{
+                $productdescription=$_POST['productdescription'];
+            }
+            if(!empty($_POST['productdate'])){
+                $product_date=$_POST['productdate'];
             }
             if(isset($_FILES['productimg'])){
                 $fileName=$_FILES['productimg']['name'];
@@ -29,10 +37,10 @@
                         if(in_array($tail_img,$tail_stand_img)){
                             $dirFile=getcwd() . '/uploads/';
                             $destFilePath=$dirFile . $newFileName;
-                            if(move_uploaded_file($fileTmp,$destFilePath)){
-                                echo json_encode(["ok"=>"ok"]);
-                            }else{
-                                $error["error_file"]="not";
+                            if(empty($error)){
+                                if(move_uploaded_file($fileTmp,$destFilePath)){
+                                    $product_img=$newFileName;
+                                }
                             }
                         }else{
                             $error["error_file"]="File extension not match";
@@ -47,9 +55,31 @@
                 $error["error_file"]="File not found";
             }
             if(!empty($error)){
+                $error["error"]=true;
                 echo json_encode($error);
             }else{
-                echo json_encode(["ok"=>"ok"]);
+                $product=[
+                    "product_name"=>$productname,
+                    "product_img"=>$product_img,
+                    "product_description"=>$productdescription,
+                    "product_date_created"=>$product_date,
+                    "user_id"=>$_SESSION['user_id']
+                ];
+                $this->addProduct($product);
+                echo json_encode(["error"=>false,"status"=>"Add new product succesfully"]);
             }
+        }
+        function getProductAjax(){
+            $countProduct=$this->totalProduct();
+            if(isset($_GET['currentPage'])){
+                $current_page=$_GET['currentPage'];
+            }else{
+                $current_page=1;
+            }
+            $per_page=4;
+            $start=($current_page-1) * $per_page;
+            $limit=$per_page;    
+            $product=$this->showData($start,$limit);
+            echo json_encode(["product"=>$product,"count"=>$countProduct]);
         }
     }
