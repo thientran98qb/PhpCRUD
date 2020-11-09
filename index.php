@@ -14,6 +14,12 @@
     if(!empty($actionAjax) && $actionAjax=="getProduct"){
         return $product->getProductAjax();  
     }
+    if(!empty($actionAjax) && $actionAjax=="editproduct"){
+        return $product->showFormEdit();  
+    }
+    if(!empty($actionAjax) && $actionAjax=="deleteproduct"){
+        return $product->deleteProduct();  
+    }
     if(empty($action)){
         $action=filter_input(INPUT_POST,'action');
     }

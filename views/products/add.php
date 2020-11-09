@@ -22,9 +22,9 @@
                 <div class="form-group">
                     <label for="message-text" class="col-form-label">Product Description:</label>
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
+                        <!-- <div class="input-group-prepend">
                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                        </div>
+                        </div> -->
                         <textarea class="form-control" id="productdescription" name="productdescription" required="required" cols="30" rows="10"></textarea>
                     </div>
                     <div id="errorDesc" class="error"></div>
@@ -40,14 +40,15 @@
                 </div>
                 <div class="form-group">
                     <label for="message-text" class="col-form-label">Photo:</label>
+                    <div id="nameFile"></div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupFileAddon01"><i class="fa fa-picture-o" aria-hidden="true"></i></span>
                         </div>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" name="productimg" id="productimg" >
-                            <label class="custom-file-label" for="userphoto">Choose file</label>
-                        </div>
+                            <label class="custom-file-label" for="productimg">Choose file</label>
+                        </div>           
                     </div>
                     <div id="errorFile" class="error"></div>
                 </div>

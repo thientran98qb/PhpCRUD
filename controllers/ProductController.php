@@ -30,7 +30,7 @@
                 $fileTmp=$_FILES['productimg']['tmp_name'];
                 if($_FILES['productimg']['error'] == 0){
                     if($_FILES['productimg']['size']<2100000){
-                        $tail_stand_img=array('png','jpg','jpge','gif');
+                        $tail_stand_img=array('png','jpg','jpeg','gif');
                         $extension_img=explode('.',$fileName);
                         $tail_img=strtolower(end($extension_img)) ;
                         $newFileName=md5(time().$fileName). '.'. $tail_img;
@@ -81,5 +81,22 @@
             $limit=$per_page;    
             $product=$this->showData($start,$limit);
             echo json_encode(["product"=>$product,"count"=>$countProduct]);
+        }
+        function showFormEdit(){
+            $product_id=(isset($_GET['product_id']) ? $_GET['product_id'] : '');
+            $row=$this->getRowbyId($product_id);
+            echo json_encode(["row"=>$row]);
+        }
+        function deleteProduct(){
+            $product_id=(isset($_GET['product_id']) ? $_GET['product_id'] : '');
+            $row=$this->getRowbyId($product_id);
+            $delete=$this->deleteRowId($product_id);
+            if($delete === true){
+                if(unlink( getcwd() . "/uploads/" . $row['product_img'])){
+                    echo json_encode(["delete"=>true]);
+                } 
+            }else{
+                echo json_encode(["delete"=>false]);
+            }
         }
     }
