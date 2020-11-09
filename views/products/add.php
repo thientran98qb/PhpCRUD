@@ -57,6 +57,7 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-success" id="addButton">Submit</button>
                 <input type="hidden" name="actionn" value="addProductAjax">
+                <input type="hidden" name="productid" id="product_id" value="">
             </div>
       </form>
     </div>

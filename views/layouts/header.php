@@ -17,17 +17,23 @@
         <div class="nav">
             <div class="nav_content">
                 <h1>CRUD PHP</h1>
-                <span class="logout">                
-                    <p class="nameLogin">
-                        <?php if(isset($_SESSION['fullname'])) {?>
-                            Hello <?php echo $_SESSION['fullname']; ?>
-                        <?php }?>
-                    </p>
-                    <p class="nameLogin">
-                        <?php if(isset($_COOKIE['login'])) {?>
-                            Hello <?php echo $_COOKIE['login']; ?>
-                        <?php }?>
-                    </p>
+                <span class="logout">
+                <p class="nameLogin">
+                    <?php if(isset($_SESSION['fullname']) && isset($_COOKIE['login'])) {?>
+                        Hello <?php echo $_SESSION['fullname']; ?>
+                    <?php }else{?>
+                        <p class="nameLogin">
+                            <?php if(isset($_SESSION['fullname'])) {?>
+                                Hello <?php echo $_SESSION['fullname']; ?>
+                            <?php }?>
+                        </p>
+                        <p class="nameLogin">
+                            <?php if(isset($_COOKIE['login'])) {?>
+                                Hello <?php echo $_COOKIE['login']; ?>
+                            <?php }?>
+                        </p>    
+                    <?php }?> 
+                </p>                  
                     <a href=".?action=logout" class="btn btn-success btn-logout"><i class="fas fa-sign-out-alt">Logout</i></a>
                 </span>
             </div>

@@ -27,7 +27,8 @@
         case 'processlogin':
             $auth->loginPage();
             if(isset($_SESSION['isLogin'])){
-                $product->showHome();
+                header("Location:http://localhost:8080/PhpCRUD");
+                // $product->showHome();
             }else{
                 unset($_SESSION['loginError']);
             }

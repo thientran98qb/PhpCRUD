@@ -9,7 +9,7 @@ function getProduct(product){
         <td class="align-middle">${product.user_fullname}</td>
         <td class="align-middle">
             <a href="#" class="btn btn-success mr-3 profile" data-productid="${product.product_id}" data-toggle="modal" data-target="#userViewModal" title="DetailProduct"><i class="fa fa-address-card-o" aria-hidden="true"></i></a>
-            <a href="#" class="btn btn-warning mr-3 editproduct" data-productid="${product.product_id}" data-toggle="modal" data-target="#userModal" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+            <a href="#" class="btn btn-primary mr-3 editproduct" data-productid="${product.product_id}" data-toggle="modal" data-target="#userModal" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>
             <a href="#" class="btn btn-danger deleteproduct" data-productid="${product.product_id}" title="Delete"><i class="fa fa-trash-o fa-lg"></i></a>
         </td>
         </tr>`;
@@ -65,8 +65,10 @@ function loadProduct(){
     });
     
 }
+//Process add form
 $(document).ready(function(){
     $("#addform").submit(function(e){
+        var alertMs=($("#product_id").val()=="") ? "Add new product success" : "Update product success";
         e.preventDefault();
         $.ajax({
             url:"http://localhost:8080/PhpCRUD/index.php",
@@ -76,8 +78,9 @@ $(document).ready(function(){
             processData: false,
             contentType: false,
             success:function(rows){
+                console.log(rows.p)
                 if(rows.error==true){
-                    console.log(rows)
+                    console.log(rows.p)
                     if(rows.error_name){
                         $("#errorProductName").html(rows.error_name);
                     }else{
@@ -96,7 +99,7 @@ $(document).ready(function(){
                 }else{
                     $("#userModal").modal("hide");
                     Swal.fire(
-                        'Add new product success',
+                        alertMs,
                         'You clicked the button!',
                         'success'
                     )
@@ -121,6 +124,14 @@ $(document).ready(function(){
         product_id=$(this).data("productid");
         console.log(product_id);
     });
+    $(document).on("click","#addnewbtn", function () {
+        $("#addform")[0].reset();   
+        $("#productname").val("");
+        $("#productdescription").val("");
+        $("#productdate").val("");
+        $("#nameFile").html("");
+        $("#product_id").val('');
+    });
     //show interface edit form 
     $(document).on("click",".editproduct",function(e){
         product_id=$(this).data("productid");
@@ -130,10 +141,11 @@ $(document).ready(function(){
             dataType:"JSON",
             data:{product_id:product_id,actionn:"editproduct"},
             success:function(rows){
+                $("#product_id").val(parseInt(product_id));
                 if(rows){
-                    $("#productname").attr("value",rows.row.product_name);
+                    $("#productname").val(rows.row.product_name);
                     $("#productdescription").val(rows.row.product_description);
-                    $("#productdate").attr("value",rows.row.product_date_created);
+                    $("#productdate").val(rows.row.product_date_created);
                     $("#nameFile").html("<img src='uploads/"+rows.row.product_img+"' class='img-thumbnail rounded float-left'>");
                 }
             },
@@ -142,6 +154,7 @@ $(document).ready(function(){
             }
         });
     });
+
     $(document).on("click",".deleteproduct",function(){
         product_id=$(this).data("productid");
         // console.log(product_id);
@@ -184,12 +197,6 @@ $(document).ready(function(){
             }
         })
     });
-    $(document).on("click","#addnewbtn", function () {
-        $("#addform")[0].reset();
-        $("#productname").val("");
-        $("#productdescription").val("");
-        $("#productdate").val("");
-        $("#nameFile").remove();
-    });
+    
     loadProduct();
 });

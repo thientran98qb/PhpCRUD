@@ -12,6 +12,7 @@
         }
         function addProductAjax(){
             $error=array();
+            $productID=(!empty($_POST['productid'])) ? $_POST['productid'] : '';
             if(!preg_match('/^[a-z0-9A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_ ]{6,}$/', $_POST['productname'])){
                 $error["error_name"]="Product name is invalid";
             }else{
@@ -25,47 +26,57 @@
             if(!empty($_POST['productdate'])){
                 $product_date=$_POST['productdate'];
             }
-            if(isset($_FILES['productimg'])){
-                $fileName=$_FILES['productimg']['name'];
-                $fileTmp=$_FILES['productimg']['tmp_name'];
-                if($_FILES['productimg']['error'] == 0){
-                    if($_FILES['productimg']['size']<2100000){
-                        $tail_stand_img=array('png','jpg','jpeg','gif');
-                        $extension_img=explode('.',$fileName);
-                        $tail_img=strtolower(end($extension_img)) ;
-                        $newFileName=md5(time().$fileName). '.'. $tail_img;
-                        if(in_array($tail_img,$tail_stand_img)){
-                            $dirFile=getcwd() . '/uploads/';
-                            $destFilePath=$dirFile . $newFileName;
-                            if(empty($error)){
-                                if(move_uploaded_file($fileTmp,$destFilePath)){
-                                    $product_img=$newFileName;
-                                }
-                            }
-                        }else{
-                            $error["error_file"]="File extension not match";
-                        }
-                    }else{
-                        $error["error_file"]="File size must be less 2MB";
-                    }
-                }else{
-                    $error["error_file"]="File error";
-                }
-            }else{
-                $error["error_file"]="File not found";
-            }
+           
             if(!empty($error)){
                 $error["error"]=true;
                 echo json_encode($error);
             }else{
-                $product=[
-                    "product_name"=>$productname,
-                    "product_img"=>$product_img,
-                    "product_description"=>$productdescription,
-                    "product_date_created"=>$product_date,
-                    "user_id"=>$_SESSION['user_id']
-                ];
-                $this->addProduct($product);
+                if(empty($_FILES['productimg']['name'])){
+                    $product=[
+                        "product_name"=>$productname,
+                        "product_description"=>$productdescription,
+                        "product_date_created"=>$product_date,
+                        "user_id"=>$_SESSION['user_id']
+                    ];
+                }else{
+                    if(isset($_FILES['productimg'])){
+                        $fileName=$_FILES['productimg']['name'];
+                        $fileTmp=$_FILES['productimg']['tmp_name'];
+                        if($_FILES['productimg']['error'] == 0){
+                            if($_FILES['productimg']['size']<2100000){
+                                $tail_stand_img=array('png','jpg','jpeg','gif');
+                                $extension_img=explode('.',$fileName);
+                                $tail_img=strtolower(end($extension_img)) ;
+                                $newFileName=md5(time().$fileName). '.'. $tail_img;
+                                if(in_array($tail_img,$tail_stand_img)){
+                                    $dirFile=getcwd() . '/uploads/';
+                                    $destFilePath=$dirFile . $newFileName;
+                                    if(empty($error)){
+                                        if(move_uploaded_file($fileTmp,$destFilePath)){
+                                            $product_img=$newFileName;
+                                        }
+                                    }
+                                }else{
+                                    $error["error_file"]="File extension not match";
+                                }
+                            }else{
+                                $error["error_file"]="File size must be less 2MB";
+                            }
+                        }
+                    }
+                    $product=[
+                        "product_name"=>$productname,
+                        "product_img"=>$product_img,
+                        "product_description"=>$productdescription,
+                        "product_date_created"=>$product_date,
+                        "user_id"=>$_SESSION['user_id']
+                    ];
+                }
+                if($productID != ''){
+                    $this->update($product,$productID);
+                }else{
+                    $this->addProduct($product);
+                }
                 echo json_encode(["error"=>false,"status"=>"Add new product succesfully"]);
             }
         }
