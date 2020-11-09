@@ -8,7 +8,7 @@ function getProduct(product){
         <td class="align-middle">${product.product_date_created}</td>
         <td class="align-middle">${product.user_fullname}</td>
         <td class="align-middle">
-            <a href="#" class="btn btn-success mr-3 profile" data-productid="${product.product_id}" data-toggle="modal" data-target="#userViewModal" title="DetailProduct"><i class="fa fa-address-card-o" aria-hidden="true"></i></a>
+            <a href="#" class="btn btn-success mr-3 profile" data-productid="${product.product_id}" data-toggle="modal" data-target="#productViewModal" title="DetailProduct"><i class="fa fa-address-card-o" aria-hidden="true"></i></a>
             <a href="#" class="btn btn-primary mr-3 editproduct" data-productid="${product.product_id}" data-toggle="modal" data-target="#userModal" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>
             <a href="#" class="btn btn-danger deleteproduct" data-productid="${product.product_id}" title="Delete"><i class="fa fa-trash-o fa-lg"></i></a>
         </td>
@@ -122,7 +122,21 @@ $(document).ready(function(){
     //show detail product 
     $(document).on("click",".profile",function(e){
         product_id=$(this).data("productid");
-        console.log(product_id);
+        $.ajax({
+            url:"http://localhost:8080/PhpCRUD/index.php",
+            type:"GET",
+            dataType:"JSON",
+            data:{product_id:product_id,actionn:"profile"},
+            success:function(row){
+                if(row){
+                    $("#product_imgg").attr("src","uploads/"+row.detailrow.product_img);
+                    $("#product_name").html(row.detailrow.product_name);
+                    $("#product_desc").html(row.detailrow.product_description);
+                    $("#product_date").html(row.detailrow.product_date_created);
+                    $("#creator").html(row.detailrow.user_fullname)
+                }
+            }
+        });
     });
     $(document).on("click","#addnewbtn", function () {
         $("#addform")[0].reset();   
@@ -154,7 +168,6 @@ $(document).ready(function(){
             }
         });
     });
-
     $(document).on("click",".deleteproduct",function(){
         product_id=$(this).data("productid");
         // console.log(product_id);

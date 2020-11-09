@@ -110,4 +110,9 @@
                 echo json_encode(["delete"=>false]);
             }
         }
+        function getDetailProduct(){
+            $id=(isset($_GET['product_id'])) ?$_GET['product_id'] : '';
+            $row=$this->getRowbyId($id);
+            echo json_encode(["detailrow"=>$row]);
+        }
     }

@@ -4,6 +4,7 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" id="addnewbtn" data-target="#userModal">Add Product</button>
         </div>
         <?php include_once DOCUMENT_ROOT."/views/products/add.php"; ?>
+        <?php include_once DOCUMENT_ROOT."/views/products/detail.php"; ?>
         <div class="alert alert-success text-center" id="message" style="display: none;">
 
         </div>

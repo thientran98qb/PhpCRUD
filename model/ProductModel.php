@@ -56,18 +56,6 @@
             }
             return false;
         }
-        // public function update($productname,$productdecs,$productimg,$productdate, $id)
-        // {
-            
-        //     $sql = "UPDATE {$this->table} SET product_name=:productName,product_img=:productImg,product_description=:productDesc,product_date_created=:productDate WHERE product_id=:id";
-        //     $stmt = $this->conn->prepare($sql);
-        //     $stmt->bindValue(":productName",$productname);
-        //     $stmt->bindValue(":productImg",$productimg);
-        //     $stmt->bindValue(":productDesc",$productdecs);
-        //     $stmt->bindValue(":productDate",$productdate);
-        //     $stmt->bindValue(":id",$id);
-        //     $stmt->execute();
-        // }
         public function update($data, $id)
         {
             if (!empty($data)) {

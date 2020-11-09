@@ -20,6 +20,9 @@
     if(!empty($actionAjax) && $actionAjax=="deleteproduct"){
         return $product->deleteProduct();  
     }
+    if(!empty($actionAjax) && $actionAjax=="profile"){
+        return $product->getDetailProduct();  
+    }
     if(empty($action)){
         $action=filter_input(INPUT_POST,'action');
     }
