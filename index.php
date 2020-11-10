@@ -23,6 +23,9 @@
     if(!empty($actionAjax) && $actionAjax=="profile"){
         return $product->getDetailProduct();  
     }
+    if(!empty($actionAjax) && $actionAjax=="search"){
+        return $product->processSearch();  
+    }
     if(empty($action)){
         $action=filter_input(INPUT_POST,'action');
     }

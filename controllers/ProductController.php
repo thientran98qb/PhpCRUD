@@ -115,4 +115,9 @@
             $row=$this->getRowbyId($id);
             echo json_encode(["detailrow"=>$row]);
         }
+        function processSearch(){
+            $valueS=(isset($_GET['valueSearch'])) ? $_GET['valueSearch'] : '';
+            $valueRealSearch=$this->searchProduct($valueS);
+            echo json_encode(["value"=>$valueRealSearch]);
+        }
     }

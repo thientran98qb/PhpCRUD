@@ -210,6 +210,27 @@ $(document).ready(function(){
             }
         })
     });
-    
+    $(document).on("keyup","#search",function(){
+        valueSearch=$("#search").val();
+        // var currentPage=$("#currentpage").val();
+        $.ajax({
+            url:"http://localhost:8080/PhpCRUD_ver1/index.php",
+            type:"GET",
+            dataType:"JSON",
+            data:{valueSearch:valueSearch,actionn:"search"},
+            success:function(value){
+                var productRows="";
+                if(value){
+                    $.each(value.value,function(index,value){
+                        productRows+=getProduct(value);
+                    });
+                    $("#productstable tbody").html(productRows);
+                }  
+            },
+            error:function(){
+
+            }
+        });
+    });
     loadProduct();
 });

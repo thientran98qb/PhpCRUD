@@ -81,6 +81,17 @@
                 echo "Error: " . $e->getMessage();
                 $this->conn->rollback();
             }
-
+        }
+        function searchProduct($product_name){
+            $query="SELECT * FROM products INNER JOIN users ON products.user_id=users.user_id WHERE product_name LIKE '%${product_name}%'";
+            $stmt=$this->conn->prepare($query);
+            // $stmt->bindValue(":productname",$product_name);
+            $stmt->execute();
+            if($stmt->rowCount() > 0){
+                $data=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            }else{
+                $data=[];
+            }
+            return $data;
         }
     }

@@ -5,8 +5,12 @@
         </div>
         <?php include_once DOCUMENT_ROOT."/views/products/add.php"; ?>
         <?php include_once DOCUMENT_ROOT."/views/products/detail.php"; ?>
-        <div class="alert alert-success text-center" id="message" style="display: none;">
-
+        <div class="row">
+            <div class="col col-sm-4">
+                <div class="search p-2">
+                    <input type="text" name="search" class="form-control" id="search" placeholder="Searching product name.....">
+                </div>
+            </div>
         </div>
         <table class="table" id="productstable">
             <thead>
